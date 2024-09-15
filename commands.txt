@@ -1,0 +1,177 @@
+Database :
+deleting
+   21  mysql -u aishwarya  -p  Aishdip
+   22  sudo systemctl stop mysql
+   23  sudo apt purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+   24  sudo apt autoremove
+   25  sudo rm -rf /etc/mysql /var/lib/mysql /var/log/mysql
+   26  sudo deluser mysql
+   27  sudo delgroup mysql
+reinstalling
+   28  sudo find / -iname 'mysql*' -exec rm -rf {} \;
+   29  ps aux | grep mysql
+   30  dpkg -l | grep mysql
+   31  sudo apt update
+   32  sudo apt install mysql-server
+   33  sudo mysql_secure_installation - Run the security script to set a root password and remove insecure default settings: root , password, options.
+   34  sudo mysql -u root -p   - Log in to the MySQL shell with the root user
+Mysql commands > CREATE DATABASE chatapp;
+                                > CREATE USER 'aishwarya'@'%' IDENTIFIED BY 'Aishdip@2002';
+                              > GRANT ALL PRIVILEGES ON chatapp.* TO 'aishwarya'@'%';
+                              > FLUSH PRIVILEGES;
+                              > EXIT;
+   35  sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf -   bind-address = 0.0.0.0(Change 127.0.0.1 to 0.0.0.0 to allow connections from any IP address:))
+   36  sudo systemctl restart mysql
+Verify MySQL Installation : 
+sudo systemctl status mysql
+Test Remote Connection:
+•	You can test the connection to your MySQL server from another VM or your local machine to ensure it's accessible. Use the MySQL client:
+mysql -u your_db_user -p -h your_database_ip
+
+   37  ssh asureuser@10.0.0.164
+   38  clear
+   39  mysql -u aishwarya -p
+   40  ifconfig
+
+# ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_password';
+backend history:
+1  clear
+   16  sudo apt-get update
+   17  sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+Or sudo apt install python3 python3-pip  - Install Python and pip
+sudo apt install python3-venv  - Install Virtual Environment
+python3 -m venv myenv - Create a Virtual Environment
+source myenv/bin/activate - Activate the Virtual Environment
+pip install django
+   18  pip install mysqlclient
+git clone https://github.com/peyyala7hills/new_chatapp.git
+cd new_chatapp
+pip install -r requirements.txt
+SETTINGS.PY :    
+ find . -name "settings.py" 
+ cd fundo/fundoo/settings.py
+
+DATABASES = { 'default': { 'ENGINE': 'django.db.backends.mysql', 'NAME': 'chatapp', 'USER': 'your_db_user', 'PASSWORD': 'your_db_password', 'HOST': 'your_database_ip', 'PORT': '3306', } }
+  .
+   20  cd new_chatapp
+   22  find . -name "manage.py"
+   
+   
+   29  cd ./fundoo/
+   30  python manage.py migrate --Applies database migrations to set up the database scheme
+   57  python manage.py runserver 0.0.0.0:8000
+   82  sudo apt install mysql-client-core-5.7
+   85  mysql -h 10.0.0.132 -u aishwarya -p
+
+Frontend history :
+1  sudo apt-get update
+    2  sudo apt-get install nginx
+    3  sudo apt-get update
+    4  sudo apt-get install nginx
+    5  sudo nano /etc/nginx/sites-available/chatapp
+    6  cat  /etc/nginx/sites-available/chatapp (nothing)
+    7  sudo ln -s /etc/nginx/sites-available/chatapp /etc/nginx/sites-enabled/
+    8  sudo nginx -t
+    9  ls
+   10  pwd
+   11  ls
+   12  ssh azureuser@10.0.0.132
+   13  ssh azureuser@
+   14  10.0.0.164
+   15  ssh azureuser@10.0.0.164
+   16  whomi
+   17  whoami
+   18  ssh azureuser@10.0.0.132
+   19  chmod 600 ~/.ssh/authorized_keys
+   20  chmod 700 ~/.ssh
+   21  cd ~/.ssh
+   22  ls
+   23  ls -l
+   24  cd ~
+   25  pwd
+   26  ssh azureuser@10.0.0.132
+   27  ssh-add -l
+   28  ssh azureuser@10.0.0.132
+   29  telnet 10.0.0.132
+   30  ping google.com
+   31  cd ~/.ssh
+   32  ls
+   33  cat authorized_keys
+   34  cd ~
+   35  ssh azureuser@10.0.0.132
+   36  clear
+   37  ssh azureuser@10.0.0.132
+   38  ssh azureuser@10.0.0.164
+   39  clear
+   40  ssh azureuser@10.0.0.164
+   41  clear
+   42  ssh azureuser@10.0.0.164
+   43  ssh-keygen -f "/home/azureuser/.ssh/known_hosts" -R "10.0.0.164"
+   44  cat /home/azureuser/.ssh/known_hosts
+   45  ssh azureuser@10.0.0.164
+   
+   50  sudo apt-get update
+   51  sudo apt-get install nginx
+   52  cd /etc/nginx/sites-available/
+   53  sudo nano myproject
+   54  ls
+   55  cat chatapp
+   56  nano chatapp
+   57  ls
+   58  ls -l
+   59  chmod 700 chatapp
+   60  sudo chmod 700 chatapp
+   61  nano chatapp
+   62  sudo chmod 777 chatapp
+   63  nano chatapp
+ 
+Server Block:
+•  listen 80;: This directive tells NGINX to listen for incoming HTTP requests on port 80, which is the default port for HTTP traffic.
+•  server_name 20.121.118.164;: This specifies the domain name or IP address that the server block should respond to. In this case, it's set to respond to the IP address 20.121.118.164.
+2. Location Block /:
+•  location / {}: This block handles requests that match the root URL (/). Any request to http://20.121.118.164/ will be processed by this block.
+•  proxy_pass http://10.0.0.164:8000;: This directive tells NGINX to forward all requests that match the root URL to a backend server located at http://10.0.0.164:8000. The backend server is likely running your application.
+•  proxy_set_header Host $host;: This sets the Host header in the request that is passed to the backend server. $host is a variable that contains the value of the Host header from the client’s original request.
+•  proxy_set_header X-Real-IP $remote_addr;: This sets the X-Real-IP header with the client’s IP address. $remote_addr contains the client’s IP address.
+•  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;: This adds the client’s IP address to the X-Forwarded-For header. This header is used to keep track of the original client IP address when the request is passed through multiple proxies.
+•  proxy_set_header X-Forwarded-Proto $scheme;: This sets the X-Forwarded-Proto header with the protocol (HTTP or HTTPS) that the client used. $scheme contains the protocol (http in this case since port 80 is used).
+Location Block /static/ :-
+•  location /static/ {}: This block handles requests that start with /static/. These are typically requests for static files like CSS, JavaScript, or images.
+•  alias /home/azureuser/new_chatapp/static/;: This directive tells NGINX to serve the files located in the /home/azureuser/new_chatapp/static/ directory when a request is made to /static/. For example, a request to http://20.121.118.164/static/style.css will serve the file located at /home/azureuser/new_chatapp/static/style.css.
+4. Location Block /media/:
+•  location /media/ {}: This block handles requests that start with /media/. These are typically requests for media files like uploaded images or videos.
+•  alias /home/azureuser/new_chatapp/media/;: This directive tells NGINX to serve the files located in the /home/azureuser/new_chatapp/media/ directory when a request is made to /media/. For example, a request to http://20.121.118.164/media/image.png will serve the file located at /home/azureuser/new_chatapp/media/image.png.
+
+
+
+   64  clear
+   65  sudo ln -s /etc/nginx/sites-available/chatapp /etc/nginx/sites-enabled/
+   66  ls
+   67  sudo rm /etc/nginx/sites-enabled/default
+   68  sudo nginx -t
+   69  sudo systemctl restart nginx
+   70  ls
+   71  sudo rm /etc/nginx/sites-enabled/default
+   72  sudo rm default
+   73  ls
+   MAKE PROCESS DAEMON :
+sudo nano /etc/systemd/system/new_chatapp.service
+[Unit]
+Description=Django Application
+After=network.target
+
+[Service]
+User=azureuser
+Group=www-data
+WorkingDirectory=/home/azureuser/new_chatapp/fundoo
+ExecStart=/home/azureuser/myenv/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 fundoo.wsgi:application
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+sudo systemctl daemon-reload
+sudo systemctl start new_chatapp
+sudo systemctl enable new_chatapp
+sudo systemctl status new_chatapp
+TO CHECK RUNNING AS CHAT_APP – PS AUX | CHAT_APP
+
